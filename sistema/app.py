@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 from pymongo import MongoClient
 import re
+import os
 
 
 while True:
 	try:
+		os.system('clear')
 		client = MongoClient()
 		db = client.python
 
@@ -25,7 +27,7 @@ while True:
 		print(messagem_inicial)
 		opcao = int(input('Selecione uma opção: '))
 
-		if opcao <=6:
+		if opcao <=6  and opcao != 0:
 			if opcao == 1:
 				nome = input('Digite o nome: ')
 				nome = re.compile(nome, re.IGNORECASE)
@@ -69,12 +71,14 @@ while True:
 			if opcao == 5:
 				for i in db.usuarios.find():
 					print('{0:.<26} {1:.<30} {2: ^3}'.format(i['nome'], i['email'], i['idade']))
-			
+				input('Digite enter para continuar')	
+
 			if opcao == 6:
 				print('Até logo!!!!')
 				exit()
 		else:
 			print('Opção invalida!!!')
+			input('Digite enter para continuar')
 
 	except Exception as e:
 		print(e)
