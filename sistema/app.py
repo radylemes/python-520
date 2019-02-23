@@ -34,9 +34,11 @@ while True:
 				check = db.usuarios.find({'nome': nome}).count()
 				if check == 0:
 					print('Nome não localizado!!!!')
+					input('Digite enter para continuar')
 				else:
 					for i in db.usuarios.find({'nome': nome}):
-						print(i)
+						print('{0:.<26} {1:.<30} {2: ^3}'.format(i['nome'], i['email'], i['idade']))
+					input('Digite enter para continuar')
 
 			if opcao == 2:
 				nome = input('Digite o nome do usuario: ')
@@ -47,7 +49,9 @@ while True:
 				for i in id_banco:
 					id_banco = (i['_id']) + 1
 				db.usuarios.insert({'_id' : id_banco, 'nome' : nome, 'email' : email, 'idade' : idade, 'senha' : senha })
-			
+				print('Usuario cadastrado com sucesso!!!')
+				input('Digite enter para continuar')
+
 			if opcao == 3:
 				nome = input('Digite o nome do usuario para atualizar cadastro: ')
 				nome = re.compile(nome, re.IGNORECASE)
@@ -58,7 +62,8 @@ while True:
 						idade = int(input('Digite a idade: '))
 						senha =  input('Digite a senha: ')
 						db.usuarios.update({'_id' : id_banco},{'_id' : id_banco, 'nome' : nome, 'email' : email, 'idade' : idade, 'senha' : senha })
-			
+				print('Atualizado com sucesso!!')
+
 			if opcao == 4:
 				for i in db.usuarios.find():
 					print(i['nome'])
@@ -67,6 +72,8 @@ while True:
 				for i in db.usuarios.find({'nome': nome}):
 					id_banco = (i['_id'])
 					db.usuarios.remove({'_id' : id_banco})
+				print('Usuario removido com sucesso!!!')
+				input('Digite enter para continuar')
 			
 			if opcao == 5:
 				for i in db.usuarios.find():
